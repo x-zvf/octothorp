@@ -47,7 +47,7 @@ class MainWindow(Gtk.ApplicationWindow):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.set_default_size(350, 400)
-        self.set_title("pyOTP")
+        self.set_title("Octothorp")
 
         self.quit_action = Gio.SimpleAction.new("quit", None) # look at MENU_XML win.quit
         self.quit_action.connect("activate", self.on_close)
@@ -74,7 +74,7 @@ class MainWindow(Gtk.ApplicationWindow):
         about_window = Adw.AboutWindow(
             transient_for=self,
             modal=True,
-            application_name="pyOTP",
+            application_name="Octothorp",
             developer_name = "Péter Bohner (xzvf)",
             copyright = "Copyright 2022 Péter Bohner (aka. xzvf)",
             )
@@ -95,5 +95,5 @@ class MyApp(Adw.Application):
     
 
 def run():
-    app = MyApp(application_id="me.bohner.pyotp")
+    app = MyApp(application_id="me.bohner.octothorp")
     app.run(sys.argv)
