@@ -42,6 +42,34 @@ class Header(Gtk.HeaderBar):
         self.add_button.set_tooltip_text("Add new OTP")
         self.pack_start(self.add_button)
 
+class OTPEntry(Gtk.ListBoxRow):
+    def __init__(self, name, secret) -> None:
+        super().__init__()
+        self.name = name
+        self.secret = secret
+        self.label = Gtk.Label(label=name)
+        self.label.set_margin_top(10)
+        self.label.set_margin_bottom(10)
+
+        self.set_child(self.label)
+        
+
+class OTPList(Gtk.ScrolledWindow):
+    def __init__(self) -> None:
+        super().__init__()
+        self.listbox = Gtk.ListBox()
+        self.set_child(self.listbox)
+        self.listbox.set_selection_mode(Gtk.SelectionMode.NONE)
+        self.listbox.add_css_class("boxed-list")
+
+        self.set_min_content_width(300)
+        self.set_min_content_height(300)
+        self.set_vexpand(True)
+        
+
+        for i in range(30):
+          self.listbox.append(OTPEntry(f"test {i}", "test"))
+        
         
 class MainWindow(Gtk.ApplicationWindow):
     def __init__(self, *args, **kwargs):
@@ -59,13 +87,10 @@ class MainWindow(Gtk.ApplicationWindow):
 
         self.header = Header()
         self.set_titlebar(self.header)
-        
-        self.box1 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
-        self.set_child(self.box1)
 
-        self.button = Gtk.Button(label="Hello")
-        self.box1.append(self.button)
-        self.button.connect('clicked', lambda x,y: print(x,y))
+        self.otp_list = OTPList()
+        self.set_child(self.otp_list)
+
 
     def on_close(self, action, param):
         pass
